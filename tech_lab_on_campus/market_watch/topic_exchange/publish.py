@@ -35,7 +35,7 @@ def main(ticker: str, price: float, sector: str) -> None:
 
     # Set the routing key and publish a message with that topic exchange:
     routing_key = ticker + "." + sector if len(sys.argv) > 2 else 'anonymous.info'
-    message = ticker + " price is now $" + str(price) if not ticker and not price and not sector else 'Hello World!'
+    message = ticker + " price is now $" + str(price) if ticker or price or sector else 'Hello World!'
     channel.basic_publish(
         exchange='topic_logs', routing_key=routing_key, body=message)
     print(f" [x] Sent {routing_key}:{message}")
